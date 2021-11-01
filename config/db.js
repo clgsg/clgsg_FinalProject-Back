@@ -1,14 +1,11 @@
-const mongoose = require("mongoose");
+require("dotenv").config();
+const slonik = require("slonik");
 
-mongoose
-	.connect("mongodb://localhost/library", {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-		useCreateIndex: true,
-	})
-	.then(() => console.info("Succesfully connected to mongoDB"))
-	.catch((error) => {
-		console.error("Error trying to connect to mongoDB: ", error.message);
-		process.exit(0);
-	});
+const slonikURL =
+	process.env.NODE_ENV === "production"
+		? process.env.PRODUCTION_URL
+		: process.env.DB_URL;
+
+const db = slonik.createPool(slonikURL);
+
+module.exports = db;
