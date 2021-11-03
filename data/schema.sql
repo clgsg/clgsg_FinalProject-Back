@@ -36,8 +36,8 @@ CREATE table IF NOT EXISTS users(
 );
 CREATE table IF NOT EXISTS games(
 	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	creator TEXT UNIQUE NOT NULL references users(username),
-	g_date DATE NOT NULL,	--//TODO:
+	created_by TEXT UNIQUE NOT NULL references users(username),
+	g_date DATE NOT NULL,	--//TODO: Dar formato DD-mmm-yyyy
 	g_time TIME NOT NULL,	--//TODO: Dar formato HH24:MI
 	g_level level NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'UTC'),
@@ -46,7 +46,10 @@ CREATE table IF NOT EXISTS games(
 	notes TEXT,
 	participants TEXT[]  --//?¿Cómo incluir aquí los username de los participantes?
 );
-CREATE table IF NOT EXISTS users_games;
+CREATE table IF NOT EXISTS users_games(
+	gameId uuid references games(id),
+	userId uuid references users(id)
+);
 CREATE TABLE IF NOT EXISTS venues (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   venue_name TEXT NOT NULL,
