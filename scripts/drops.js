@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const db = require("../config/db");
 const { sql } = require("slonik");
-const seed = async () => {
+const drops = async () => {
 	try {
 		await db.query(sql`
 			DROP table IF EXISTS users CASCADE;
@@ -19,7 +19,7 @@ const seed = async () => {
 			DROP type IF EXISTS game_gen;
 			DROP type IF EXISTS level
 			`);
-		console.info("Drop successful! 🚀");
+		console.info("Drop was successful! 🚀");
 	} catch (error) {
 		console.info("Drop failed! ❌", error.message);
 	}

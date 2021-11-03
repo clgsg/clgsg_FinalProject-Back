@@ -38,7 +38,8 @@ CREATE table IF NOT EXISTS users(
 );
 CREATE table IF NOT EXISTS games(
 	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	created_by TEXT NOT NULL references users(username),
+	created_by TEXT NOT NULL references users(id), --//TODO: foreign key
+	sport sports NOT NULL,
 	g_date DATE NOT NULL,
 	g_time TIME NOT NULL,
 	g_level level NOT NULL,
@@ -47,12 +48,14 @@ CREATE table IF NOT EXISTS games(
 	updated_at TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'UTC'),
 	adapted BOOLEAN NOT NULL DEFAULT false,
 	notes TEXT,
-	participants TEXT[]
 );
-CREATE table IF NOT EXISTS users_games(
-	userId uuid references users(id),
-	gameId uuid references games(id)
-);
+
+CREATE table IF NOT EXISTS participants(
+	u_id uuid references users(id),
+	g_id uuid references games(id),
+	CONSTRAINT participants_id PRIMARY KEY (u_id,g_id));
+
+
 CREATE TABLE IF NOT EXISTS venues (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   venue_name TEXT NOT NULL,

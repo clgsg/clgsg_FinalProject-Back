@@ -592,13 +592,17 @@ VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9
 ('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[])
 
 
-INSERT INTO games (created_by, g_date, g_time, g_level, g_gender, created_at, updated_at, adapted, notes, participants)
-VALUES ('Estheruki', '2021-12-19', '16:30:00', 'Básico', 'Mixto', '2021/11/05 11:03:57', '2021/11/06 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu', 'PacoPaco']),
-('Karlitox', '2021-12-20', '17:00:00', 'Intermedio', 'Masculino', '2021/11/06 11:03:57', '2021/11/07 17:03:17', true, 'Se apuntan dos colegas en silla de ruedas', ARRAY ['Karlitox', 'erRamonchu']),
-('ErRamonchu', '2021-12-20', '20:00:00', 'Competición', 'Mixto', '2021/11/07 11:03:57', '2021/11/08 17:03:17', false, '', ARRAY ['Esthermansa', 'erRamonchu']),
-('Estheruki', '2021-12-22', '12:00:00', 'Básico', 'Femenino', '2021/11/08 11:03:57', '2021/11/09 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu', 'JoseFinoPalofino']),
-('Karlitox', '2021-12-22', '17:30:00', 'Intermedio', 'Masculino', '2021/11/09 11:03:57', '2021/11/10 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu']),
-('ErRamonchu', '2021-12-23', '20:00:00', 'Competición', 'Masculino', '2021/11/10 11:03:57', '2021/11/10 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu'])
+INSERT INTO games (created_by, sport, g_date, g_time, g_level, g_gender, created_at, updated_at, adapted, notes, participants)
+			('Estheruki', 'baloncesto', '2021-12-19', '16:30:00', 'Básico', 'Mixto', '2021/11/05 11:03:57', '2021/11/06 17:03:17', 'No', '', 'Karlitox, erRamonchu'),
+			('Karlitox', '3x3', '2021-12-20', '17:00:00', 'Intermedio', 'Masculino', '2021/11/06 11:03:57', '2021/11/07 17:03:17', 'Sí', '', 'Estheruki, Karlitox'),
+			('ErRamonchu', 'fútbol 7', '2021-12-21', '20:00:00', 'Competición', 'Mixto', '2021/11/07 11:03:57', '2021/11/08 17:03:17', 'No', '', 'erRamonchu'),
+			('Estheruki', 'fútbol', '2021-12-21', '12:00:00', 'Básico', 'Femenino', '2021/11/08 11:03:57', '2021/11/09 17:03:17', 'No', '', 'Karlitox, erRamonchu'),
+			('Karlitox', '3x3', '2021-12-26', '17:30:00', 'Intermedio', 'Masculino', '2021/11/09 11:03:57', '2021/11/10 17:03:17', 'No', '', 'Estheruki, Karlitox'),
+			('ErRamonchu', 'baloncesto', '2021-12-27', '20:00:00', 'Competición', 'Masculino', '2021/11/10 11:03:57', '2021/11/11 17:03:17', 'No', '', 'erRamonchu, Paco');
 
 
-
+INSERT into participants(u_id, g_id)
+VALUES (
+(SELECT u_id FROM users WHERE username LIKE 'Karlitox'),
+(SELECT g_id FROM games WHERE sports LIKE '{baloncesto}')
+);

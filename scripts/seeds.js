@@ -588,23 +588,30 @@ const seed = async () => {
 
 
 			INSERT INTO users (username, first_name, family_name, email, hashed_pwd, gender, birth, u_level, pref_sports)
-			VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9', 'Hombre', '01/03/1989', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
-			('Emmy83', 'Emma', 'Martínez', 'emmy83@gmail.com', 'sakx02nsoaj', 'Mujer', '15/01/1983', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-			('AnaIsabel', 'Ana Isabel', 'Martínez', 'anai@yo.com', 'sj192jh9saks', 'Mujer', '22/09/1990', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
-			('Tiatula49', 'María del Mar', 'Pérez', 'mmar.perez@yahoo.es', 's1kshb9aakj3', 'Mujer', '23/10/1994', 'Intermedio', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-			('Estheruki', 'Esther', 'Marzo', 'est_mar@gmail.com', 'kksu40kb026', 'Mujer', '07/07/1989', 'Competición', ARRAY ['fútbol', 'fútbol sala']::sports[]),
-			('Karlitox', 'Carlos', 'Romero', 'cromero@yahoo.es', 'aku4kIlsig54', 'Hombre', '11/12/1998', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-			('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '10/02/1991', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]);
+			VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9', 'Hombre', '1989-03-01', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
+			('Emmy83', 'Emma', 'Martínez', 'emmy83@gmail.com', 'sakx02nsoaj', 'Mujer', '1983-01-15', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+			('AnaIsabel', 'Ana Isabel', 'Martínez', 'anai@yo.com', 'sj192jh9saks', 'Mujer', '1990-09-22', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
+			('Tiatula49', 'María del Mar', 'Pérez', 'mmar.perez@yahoo.es', 's1kshb9aakj3', 'Mujer', '1994-10-23', 'Intermedio', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+			('Estheruki', 'Esther', 'Marzo', 'est_mar@gmail.com', 'kksu40kb026', 'Mujer', '1989-07-07', 'Competición', ARRAY ['fútbol', 'fútbol sala']::sports[]),
+			('Karlitox', 'Carlos', 'Romero', 'cromero@yahoo.es', 'aku4kIlsig54', 'Hombre', '1998-12-11', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+			('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]);
 
-			INSERT INTO games (created_by, g_date, g_time, g_level, g_gender, created_at, updated_at, adapted, notes, participants)
-			VALUES ('Estheruki', '2021-12-19', '16:30:00', 'Básico', 'Mixto', '2021/11/05 11:03:57', '2021/11/06 17:03:17', false, '', '{Romualdo,Karlitox,erRamonchu}'),
-			('Karlitox', '2021-12-20', '17:00:00', 'Intermedio', 'Masculino', '2021/11/06 11:03:57', '2021/11/07 17:03:17', true, 'Se apuntan dos colegas en silla de ruedas', '{Karlitox,erRamonchu}'),
-			('ErRamonchu', '2021-12-20', '20:00:00', 'Competición', 'Mixto', '2021/11/07 11:03:57', '2021/11/08 17:03:17', false, '', '{Karlitox,erRamonchu,EstherKS}'),
-			('Estheruki', '2021-12-22', '12:00:00', 'Básico', 'Femenino', '2021/11/08 11:03:57', '2021/11/09 17:03:17', false, '', '{Karlitox,erRamonchu}'),
-			('Karlitox', '2021-12-22', '17:30:00', 'Intermedio', 'Masculino', '2021/11/09 11:03:57', '2021/11/10 17:03:17', false, '', '{Palman78, Karlitox,erRamonchu}'),
-			('ErRamonchu', '2021-12-23', '20:00:00', 'Competición', 'Masculino', '2021/11/10 11:03:57', '2021/11/10 17:03:17', false, '', '{Karlitox,erRamonchu}')
+
+			INSERT INTO games (created_by, sport, g_date, g_time, g_level, g_gender, created_at, updated_at, adapted, notes, participants)
+			('Estheruki', 'baloncesto', '2021-12-19', '16:30:00', 'Básico', 'Mixto', '2021/11/05 11:03:57', '2021/11/06 17:03:17', 'No', '', 'Karlitox, erRamonchu'),
+			('Karlitox', '3x3', '2021-12-20', '17:00:00', 'Intermedio', 'Masculino', '2021/11/06 11:03:57', '2021/11/07 17:03:17', 'Sí', '', 'Estheruki, Karlitox'),
+			('ErRamonchu', 'fútbol 7', '2021-12-21', '20:00:00', 'Competición', 'Mixto', '2021/11/07 11:03:57', '2021/11/08 17:03:17', 'No', '', 'erRamonchu'),
+			('Estheruki', 'fútbol', '2021-12-21', '12:00:00', 'Básico', 'Femenino', '2021/11/08 11:03:57', '2021/11/09 17:03:17', 'No', '', 'Karlitox, erRamonchu'),
+			('Karlitox', '3x3', '2021-12-26', '17:30:00', 'Intermedio', 'Masculino', '2021/11/09 11:03:57', '2021/11/10 17:03:17', 'No', '', 'Estheruki, Karlitox'),
+			('ErRamonchu', 'baloncesto', '2021-12-27', '20:00:00', 'Competición', 'Masculino', '2021/11/10 11:03:57', '2021/11/11 17:03:17', 'No', '', 'erRamonchu, Paco');
+
+			INSERT into participants(u_id, g_id)
+			VALUES (
+			(SELECT u_id FROM users WHERE username LIKE 'Karlitox'),
+			(SELECT g_id FROM games WHERE 'Karlitox'=ANY(participants))
+			);  --//TODO: Modificar segundo SELECT (hemos borrado participants)
 			`);
-		console.info("Insertion successful! 🚀");
+		console.info("Insertion was successful! 🚀");
 	} catch (error) {
 		console.info("Insertion failed! ❌", error.message);
 	}
