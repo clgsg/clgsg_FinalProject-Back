@@ -579,3 +579,26 @@ VALUES ('CDM Gimnasio Moscardó ', 'C/ Pilar de Zaragoza, 93 ', '2 pabellones. 2
 ('Pista Básica Jardines del Teniente Alcalde', 'Jardines del Teniente Alcalde Pérez Pillado en. C/ de Lucio del Valle ', ' - ', 'Pista polideportiva. Pista hockey. Área multideportiva infantil '),
 ('Pista de patinaje Paco de Lucía', 'Parque Paco de Lucía ', ' - ', 'Pista de patinaje'),
 ('Pista de Petanca Centro de Mayores La Vaguada ', 'C/ Monforte de Lemos, 36', ' - ', '2 pistas de petanca');
+
+
+
+INSERT INTO users (username, first_name, family_name, email, hashed_pwd, gender, birth, level, pref_sports)
+VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9', 'Hombre', '1989-03-01', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
+('Emmy83', 'Emma', 'Martínez', 'emmy83@gmail.com', 'sakx02nsoaj', 'Mujer', '1983-01-15', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+('AnaIsabel', 'Ana Isabel', 'Martínez', 'anai@yo.com', 'sj192jh9saks', 'Mujer', '1990-09-22', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
+('Tiatula49', 'María del Mar', 'Pérez', 'mmar.perez@yahoo.es', 's1kshb9aakj3', 'Mujer', '1994-10-23', 'Intermedio', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+('Estheruki', 'Esther', 'Marzo', 'est_mar@gmail.com', 'kksu40kb026', 'Mujer', '1989-07-07', 'Competición', ARRAY ['fútbol', 'fútbol sala']::sports[]),
+('Karlitox', 'Carlos', 'Romero', 'cromero@yahoo.es', 'aku4kIlsig54', 'Hombre', '1998-12-11', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[])
+
+
+INSERT INTO games (created_by, g_date, g_time, g_level, g_gender, created_at, updated_at, adapted, notes, participants)
+VALUES ('Estheruki', '2021-12-19', '16:30:00', 'Básico', 'Mixto', '2021/11/05 11:03:57', '2021/11/06 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu', 'PacoPaco']),
+('Karlitox', '2021-12-20', '17:00:00', 'Intermedio', 'Masculino', '2021/11/06 11:03:57', '2021/11/07 17:03:17', true, 'Se apuntan dos colegas en silla de ruedas', ARRAY ['Karlitox', 'erRamonchu']),
+('ErRamonchu', '2021-12-20', '20:00:00', 'Competición', 'Mixto', '2021/11/07 11:03:57', '2021/11/08 17:03:17', false, '', ARRAY ['Esthermansa', 'erRamonchu']),
+('Estheruki', '2021-12-22', '12:00:00', 'Básico', 'Femenino', '2021/11/08 11:03:57', '2021/11/09 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu', 'JoseFinoPalofino']),
+('Karlitox', '2021-12-22', '17:30:00', 'Intermedio', 'Masculino', '2021/11/09 11:03:57', '2021/11/10 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu']),
+('ErRamonchu', '2021-12-23', '20:00:00', 'Competición', 'Masculino', '2021/11/10 11:03:57', '2021/11/10 17:03:17', false, '', ARRAY ['Karlitox', 'erRamonchu'])
+
+
+
