@@ -28,8 +28,7 @@ VALUES ('IDB 2.100 PAU ', 'Avda. de Cerro Milano c/v C/ Peñaranda de Bracamonte
 ('IDB Arequipa ', 'C/ Arequipa, 12', '2 pistas de bolos y petanca '),
 ('IDB Arganda ', 'C/ Arganda, 10 ', 'Pista de fútbol sala '),
 ('IDB Arjona ', 'C/ Concejal Francisco José Jiménez Martín, 11 ', 'Campo de fútbol 11 de tierra '),
-('IDB Arroyo Belincoso', 'Frente Avenida Doctor García Tapia, 76 ', 'Pista polideportiva')
-ON CONFLICT DO NOTHING;
+('IDB Arroyo Belincoso', 'Frente Avenida Doctor García Tapia, 76 ', 'Pista polideportiva');
 
 
 
@@ -42,8 +41,7 @@ VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9
 ('Tiatula49', 'María del Mar', 'Pérez', 'mmar.perez@yahoo.es', 's1kshb9aakj3', 'Mujer', '1994-10-23', 'Intermedio', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
 ('Estheruki', 'Esther', 'Marzo', 'est_mar@gmail.com', 'kksu40kb026', 'Mujer', '1989-07-07', 'Competición', ARRAY ['fútbol', 'fútbol sala']::sports[]),
 ('Karlitox', 'Carlos', 'Romero', 'cromero@yahoo.es', 'aku4kIlsig54', 'Hombre', '1998-12-11', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[])
-ON CONFLICT DO NOTHING;
+('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]);
 
 INSERT INTO games (created_by, sport, game_date, game_time, game_venue, game_level, game_gender, adapted, notes)
 VALUES ('Frankl89', 'baloncesto', '2021-12-19', '16:30:00', 'IDB Aniceto Marinas ', 'Básico', 'Mixto', false, ''),
@@ -56,5 +54,5 @@ VALUES ('Frankl89', 'baloncesto', '2021-12-19', '16:30:00', 'IDB Aniceto Marinas
 
 
 INSERT INTO participants (u_id, g_id)
-VALUES ('97a5c1bd-8188-4bbd-a750-6e5cc6f7871b', 5),
-('ff2ebbeb-2005-46ec-9307-19f2c10dd005', 7);
+VALUES ('131fc22f-f04b-4aba-bd4d-7901f305539f', 5),
+('a8f9b9b1-926b-4857-8a92-8b75002ab5f6', 7);
