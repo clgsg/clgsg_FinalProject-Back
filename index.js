@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use(require("./middlewares/error"));
 
-app.listen(process.env.PORT || 3000, () => {
-	console.log("> ✅ server up at port", process.env.PORT);
-});
+// app.listen(process.env.PORT || 3000, () => {
+// 	console.log("> ✅ server up at port", process.env.PORT);
+// });
+app.listen(process.env.PORT) || 3001, () => console.info("Listening...")
