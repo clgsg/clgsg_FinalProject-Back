@@ -54,5 +54,9 @@ VALUES ('Frankl89', 'baloncesto', '2021-12-19', '16:30:00', 'IDB Aniceto Marinas
 
 
 INSERT INTO participants (u_id, g_id)
-VALUES ('131fc22f-f04b-4aba-bd4d-7901f305539f', 5),
-('a8f9b9b1-926b-4857-8a92-8b75002ab5f6', 7);
+VALUES ('26f308a9-d5ce-49f8-9c8d-42e56c763d23', 1),
+('e8543225-3b7a-46bc-b002-8268a608542a', 7),
+('d6611344-d6a2-4812-8d92-fab53e846212', 3),
+('26f308a9-d5ce-49f8-9c8d-42e56c763d23', 7),
+('0c816936-a824-4c86-b32e-9e664e6dd677', 4),
+('26f308a9-d5ce-49f8-9c8d-42e56c763d23', 7);
