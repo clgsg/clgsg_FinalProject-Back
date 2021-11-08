@@ -47,8 +47,21 @@ const updateUserPassword = async (db, user) => {
 	}
 };
 
+const getAllUsers = async (db) => {
+	try {
+		await db.query(sql`
+			SELECT * FROM users
+		`)
+		return true;
+	} catch (error) {
+		console.info("Error at getAllUsers query: ", error.message);
+		return false;
+	}
+}
+
 module.exports = {
 	updateUser,
 	getUserData,
 	updateUserPassword,
+	getAllUsers,
 };
