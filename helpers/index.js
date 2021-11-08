@@ -1,5 +1,5 @@
-const { encrypt, compare, createConfirmToken } = require("./hash");
-const { toJWT, fromJWT } = require("./jwt");
+const { encrypt, compare, createConfirmToken } = require("./auth/hash");
+const { toJWT, fromJWT } = require("./auth/jwt");
 
 const serialize = (res, { email, username }) => {
 	const accessToken = toJWT(email, username);

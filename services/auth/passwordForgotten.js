@@ -1,6 +1,6 @@
 const { hash } = require("../../helpers");
 const { sendMail } = require("../../config/mailer");
-const { getUserData } = require("../../queries/user");
+const { getUserData } = require("../../queries/users");
 const { updateToken } = require("../../queries/auth");
 
 const passwordForgotten = (db) => async (req, res, next) => {
@@ -28,7 +28,7 @@ const passwordForgotten = (db) => async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		info: "Email has been sent.",
+		info: "Email sent to user",
 	});
 };
 

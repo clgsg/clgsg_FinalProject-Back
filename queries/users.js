@@ -30,19 +30,7 @@ const getUserData = async (db, { email, username }) => {
 		console.log("user query", user);
 		return user;
 	} catch (error) {
-		console.info("Error at getUserData:", error.message);
-		return false;
-	}
-};
-
-const updateUserPassword = async (db, user) => {
-	try {
-		await db.query(
-			sql`UPDATE users SET hashed_pwd=${user.newHash}, activation_token=NULL WHERE email LIKE ${user.email}`
-		);
-		return true;
-	} catch (error) {
-		console.info("Error at updateUserPassword query:", error.message);
+		console.info("⛔ Error at getUserData: ", error.message);
 		return false;
 	}
 };
@@ -54,14 +42,13 @@ const getAllUsers = async (db) => {
 		`)
 		return true;
 	} catch (error) {
-		console.info("Error at getAllUsers query: ", error.message);
+		console.info("⛔ Error at getAllUsers query: ", error.message);
 		return false;
 	}
 }
 
 module.exports = {
-	updateUser,
+	// updateUser,
 	getUserData,
-	updateUserPassword,
 	getAllUsers,
 };

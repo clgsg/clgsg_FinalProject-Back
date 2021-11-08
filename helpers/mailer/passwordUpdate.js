@@ -7,7 +7,7 @@ const sendPasswordUpdate = async ({ to, token }) => {
 		const template = passwordUpdate({ to, token });
 		return await transporter.sendMail(template);
 	} catch (e) {
-		console.info('> Error at "sendPasswordUpdate" helper: ', e.message);
+		console.info('⛔ Error at sendPasswordUpdate helper: ', e.message);
 		return false;
 	}
 };

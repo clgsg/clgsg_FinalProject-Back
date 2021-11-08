@@ -8,7 +8,7 @@ const fromJWT = (accessToken) => {
 	try {
 		return jwt.verify(accessToken, process.env.JWT_SECRET);
 	} catch (error) {
-		console.info('Error at fromJWT helper: ', error);
+		console.info("⛔ Error at fromJWT helper: ", error);
 		return false;
 	}
 };

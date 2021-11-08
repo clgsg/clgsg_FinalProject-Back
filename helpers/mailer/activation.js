@@ -7,7 +7,7 @@ const sendActivationMail = async ({ to, token }) => {
 		const template = activation({ to, token });
 		return await transporter.sendMail(template);
 	} catch (e) {
-		console.info("Error at sendActivationMail helper: ", e.message);
+		console.info("⛔ Error at sendActivationMail helper: ", e.message);
 		return false;
 	}
 };

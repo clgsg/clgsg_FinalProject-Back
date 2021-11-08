@@ -1,4 +1,4 @@
-const { hash } = require("../../helpers");
+const { hash } = require("../../helpers/auth/hash");
 const { getByToken } = require("../../queries/auth");
 const { updateUserPassword } = require("../../queries/user");
 
@@ -28,4 +28,4 @@ const newPassword = (db) => async (req, res, next) => {
 	});
 };
 
-module.exports = newPassword;
+module.exports = {newPassword}

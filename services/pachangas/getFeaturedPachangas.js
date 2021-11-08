@@ -1,10 +1,10 @@
-const { getBySearch } = require("../../queries/products");
+const { getByUsersPreferences } = require("../../queries/games");
 
 //TODO: adaptar a preferencias del usuario
 // module.exports = (db) => async (req, res, next) => {
-// 	const { search, category } = req.query;
+// 	const { category } = req.query;
 
-// 	const result = await getBySearch(db, { search, category });
+// 	const result = await getByUsersPreferences(db, { search, category });
 
 // 	if (result === false) {
 // 		return next({
