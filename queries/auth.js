@@ -46,35 +46,35 @@ const confirmUser = async (db, { token }) => {
 	}
 };
 
-// const getUserByEmailOrUsername = async (
-// 	db,
-// 	mail = "",
-// 	username = "",
-// 	compareFn
-// ) => {
-// 	try {
-// 		const result = await db.one(
-// 			sql`
-// 				SELECT email, username, hash FROM users
-// 				WHERE email LIKE ${mail}
-// 				OR username LIKE ${username}
-// 			`);
+const getUserByEmailOrUsername = async (
+	db,
+	mail = "",
+	username = "",
+	compareFn
+) => {
+	try {
+		const result = await db.one(
+			sql`
+				SELECT email, username, hash FROM users
+				WHERE email LIKE ${mail}
+				OR username LIKE ${username}
+			`);
 
-// 		if (!result) {
-// 			throw new Error("Invalid credentials");
-// 		}
+		if (!result) {
+			throw new Error("Invalid credentials");
+		}
 
-// 		const isValidPassword = await compareFn(result.hash);
+		const isValidPassword = await compareFn(result.hash);
 
-// 		if (!isValidPassword) {
-// 			throw new Error("Invalid credentials");
-// 		}
-// 		return result;
-// 	} catch (error) {
-// 		console.info("⛔ Error at getUserByEmail query:", error.message);
-// 		return false;
-// 	}
-// };
+		if (!isValidPassword) {
+			throw new Error("Invalid credentials");
+		}
+		return result;
+	} catch (error) {
+		console.info("⛔ Error at getUserByEmail query:", error.message);
+		return false;
+	}
+};
 
 const updateToken = async (
 	db,
