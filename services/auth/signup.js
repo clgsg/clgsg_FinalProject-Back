@@ -1,5 +1,5 @@
 const { createUser } = require("../../queries/auth");
-const { encrypt, createConfirmToken } = require("../../helpers/hash");
+const { encrypt, createActivationToken } = require("../../helpers/hash");
 const { sendMail } = require("../../helpers/mailer");
 
 module.exports = (db) => async (req, res, next) => {
@@ -11,7 +11,7 @@ module.exports = (db) => async (req, res, next) => {
 	}
 	const hashed_pwd = await encrypt(password);
 
-	const confirmationToken = createConfirmToken();
+	const confirmationToken = createActivationToken();
 	console.info("Confirmation: ", confirmationToken);
 
 	const result = await createUser(db, {

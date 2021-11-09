@@ -1,4 +1,4 @@
-const { jwt } = require("../helpers");
+const { jwt } = require("../helpers/auth/jwt");
 
 module.exports = (req, res, next) => {
 	const { token } = req.cookies;

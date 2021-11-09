@@ -1,4 +1,4 @@
-const { getAll } = require("../../queries/pachangas");
+const { getAll } = require("../../queries/games");
 
 module.exports = (db) => async (req, res) => {
 	const page = Number(req.query.page) || 1;

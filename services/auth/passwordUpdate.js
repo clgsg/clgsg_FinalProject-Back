@@ -1,6 +1,6 @@
 const { hash } = require("../../helpers/auth/hash");
 const { getByToken } = require("../../queries/auth");
-const { updateUserPassword } = require("../../queries/user");
+const { updateUserPassword } = require("../../queries/users");
 
 const newPassword = (db) => async (req, res, next) => {
 	const { email, token } = req.query;

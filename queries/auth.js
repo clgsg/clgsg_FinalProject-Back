@@ -1,19 +1,19 @@
 const { sql } = require("slonik");
-
-const userExist = async (db, { email, username }) => {
+const {newHash} = require('../services/auth/passwordUpdate')
+const userExists = async (db, { email, username }) => {
 	return await db.maybeOne(sql`
 		SELECT * FROM users
 		WHERE email = ${email} OR username = ${username}
   `);
 };
 
-const createUser = async (db, { email, username, hashed_pwd, token }) => {
+const createUser = async (db, { email, username, hashed_pwd, activation_token }) => {
 	try {
-		const result = await userExist(db, { email, username });
-		if (result) throw new Error("Username or email already on use");
+		const result = await userExists(db, { email, username });
+		if (result) throw new Error("⛔ Choose a different username and/or email");
 		return await db.query(sql`
 			INSERT INTO users ( email, username, hash, activation_token )
-			VALUES ( ${email}, ${username}, ${hashed_pwd}, ${token} )
+			VALUES ( ${email}, ${username}, ${hashed_pwd}, ${activation_token} )
     `);
 	} catch (e) {
 		console.info("⛔ Error at createUser query:", e.message);
@@ -28,7 +28,7 @@ const confirmUser = async (db, { token }) => {
 				SELECT * FROM users
 				WHERE activation_token = ${token}
       `);
-			if (!rowCount) throw new Error("invalid token");
+			if (!rowCount) throw new Error("Invalid token");
 			await tx.query(sql`
 				UPDATE users
 				SET
@@ -50,7 +50,7 @@ const confirmUser = async (db, { token }) => {
 // 	db,
 // 	mail = "",
 // 	username = "",
-// 	comparationFn
+// 	compareFn
 // ) => {
 // 	try {
 // 		const result = await db.one(
@@ -61,15 +61,14 @@ const confirmUser = async (db, { token }) => {
 // 			`);
 
 // 		if (!result) {
-// 			throw new Error("invalid credentials");
+// 			throw new Error("Invalid credentials");
 // 		}
 
-// 		const isValidPassword = await comparationFn(result.hash);
+// 		const isValidPassword = await compareFn(result.hash);
 
 // 		if (!isValidPassword) {
-// 			throw new Error("invalid credentials");
+// 			throw new Error("Invalid credentials");
 // 		}
-
 // 		return result;
 // 	} catch (error) {
 // 		console.info("⛔ Error at getUserByEmail query:", error.message);
@@ -119,9 +118,10 @@ const updateUserPassword = async (db, user) => {
 };
 
 module.exports = {
+	userExists,
 	createUser,
 	confirmUser,
-	// getUserByEmailOrUsername,
+	getUserByEmailOrUsername,
 	updateToken,
 	getByToken,
 	updateUserPassword,
