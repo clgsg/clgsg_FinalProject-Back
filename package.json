@@ -1,39 +1,41 @@
 {
-  "name": "back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "docker:up": "docker-compose up",
-    "docker:stop": "docker-compose stop",
-    "db:create": "node scripts/creation.js",
-    "db:drop": "node scripts/drops.js",
-    "db:seeds": "node scripts/seeds.js",
-    "db:reset": "npm run db:drop && npm run db:create && npm run db:seeds"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/clgsg/clgsg_FinalProject-Back.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/clgsg/clgsg_FinalProject-Back/issues"
-  },
-  "homepage": "https://github.com/clgsg/clgsg_FinalProject-Back#readme",
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "nodemailer": "^6.7.0",
-    "slonik": "^24.1.2"
-  },
-  "devDependencies": {
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.14"
-  }
+	"name": "back",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "npm run db:create && nodemon index.js",
+		"deploy": "git push heroku master",
+		"start": "node index.js",
+		"test": "node test.js",
+		"docker:up": "docker-compose up",
+		"docker:stop": "docker-compose stop",
+		"db:create": "node scripts/creation.js",
+		"db:prod:create": "NODE ENV=production node scripts/creation.js",
+		"db:drop": "node scripts/drops.js",
+		"db:seeds": "node scripts/seeds.js",
+		"db:reset": "npm run db:drop && npm run db:create && npm run db:seeds"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/clgsg/clgsg_FinalProject-Back.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/clgsg/clgsg_FinalProject-Back/issues"
+	},
+	"homepage": "https://github.com/clgsg/clgsg_FinalProject-Back#readme",
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"nodemailer": "^6.7.0",
+		"slonik": "^24.1.2",
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.14"
+	},
+	"devDependencies": {}
 }

@@ -6,17 +6,17 @@ const { sendMail } = require("../../helpers/mailer");
 
 const getUserData = async (db, { email, username }) => {
 	let whereClause = "";
-	if(!username && !email)
+	if(!username && !email){
+		throw new Error("Please input your username or email")
+	}
 	if (username) {
 		whereClause = sql`WHERE username = ${username}`;
 	} else {
 		whereClause = sql`WHERE email = ${email}`;
 	}
-	console.log("whereClause", whereClause);
-
 	try {
 		const user = await db.maybeOne(sql`
-		SELECT first_name, family_name, username, email, user_gender, user_level, profile_pic, pref_sports, access_token
+		SELECT username, first_name, family_name, email, user_gender, birth_date, user_level, pref_sports, access_token
 		FROM users ${whereClause}
 		`);
 		console.log("user query", user);
