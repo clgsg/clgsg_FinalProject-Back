@@ -64,23 +64,21 @@ const updateUsersEmail = async (
 	uploadFn //función currificada
 ) => {
 	try {
-		return await db.transaction(async tnx => {
+		const result = db.transaction(async tnx => {
 			const user = await getUserData(tnx, { email, username})
-			if(!user){
+			if(!user)
 				throw new Error ("Credentials don't match our records")
-			}
-		await tnx.maybeOne(sql`
-			UPDATE users
-			SET email = ${email} updated_at = now()
-			WHERE username = ${username} AND email=${email}`);
+					await tnx.maybeOne(sql`
+						UPDATE users
+						SET email = ${email} updated_at = now()
+						WHERE username = ${username} AND email=${email}
+			`)};
+		return result
 
-		const uploadResult = await uploadFn(user.userid)
-
-			return result;
-	} catch (error) {
+		} catch (error) {
 		console.info("⛔ error at updateUsersEmail query: ", error.message);
-		return false;
-	}
+		return false
+		}
 };
 
 
@@ -101,4 +99,4 @@ module.exports = {
 	updateUsersEmail,
 	getUserData,
 	getAllUsers,
-};
+}
