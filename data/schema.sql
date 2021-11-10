@@ -57,15 +57,15 @@ CREATE table IF NOT EXISTS games(
 	updated_at TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'UTC')
 );
 
--- CREATE table IF NOT EXISTS participants(
+-- CREATE table IF NOT EXISTS participants_B(
 -- 	u_id uuid references users(userid),
 -- 	g_id INTEGER references games(gameid),
--- 	participants_id VARCHAR(12) PRIMARY KEY (u_id, g_id));
+-- 	participants_id VARCHAR UNIQUE PRIMARY KEY);
 
 CREATE table IF NOT EXISTS participants(
 	u_id uuid references users(userid),
 	g_id INTEGER references games(gameid),
-	participants_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY
+	participants_id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1020) PRIMARY KEY
 );
 
 
