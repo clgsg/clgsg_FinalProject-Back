@@ -1,25 +1,18 @@
 const { sql } = require("slonik");
 const { encrypt, createActivationToken } = require("../../helpers/hash");
-const { sendMail } = require("../../helpers/mailer");
-//? comprobar y actualizar qué datos podrán actualizarse en el perfil
+//? Podrán actualizarse en el perfil: profile_pic y password,
+//* Algunas queries de users y auth están duplicadas
 
-
-const getUserData = async (db, { email, username }) => {
-	let whereClause = "";
+const getUserData = async (db, { email = "", username = "" }) => {
 	if(!username && !email){
 		throw new Error("Please input your username or email")
 	}
-	if (username) {
-		whereClause = sql`WHERE username = ${username}`;
-	} else {
-		whereClause = sql`WHERE email = ${email}`;
-	}
 	try {
 		const user = await db.maybeOne(sql`
-		SELECT username, first_name, family_name, email, user_gender, birth_date, user_level, pref_sports, access_token
-		FROM users ${whereClause}
+		SELECT username, first_name, family_name, email, user_gender, birth_date, user_level, pref_sports, created_at
+		FROM users
+		WHERE username = ${username} OR email = ${email}
 		`);
-		console.log("user query", user);
 		return user;
 	} catch (error) {
 		console.info("⛔ Error at getUserData: ", error.message);
@@ -28,25 +21,22 @@ const getUserData = async (db, { email, username }) => {
 };
 
 const getUserByEmailOrUsername = async (
-	db,
-	email = "",
-	username = "",
-	compareFn
-) => {
+	db, {email = "", username = "", hashed_pwd}, compareFn ) => {
 	try {
+		if(!username && !email){
+			throw new Error("Please input your username or email")
+		}
+		const isValidPassword = await compareFn(result.hash);
+		if (!isValidPassword) {
+			throw new Error("Incorrect password");
+		}
 		const result = await db.one(
 			sql`
 				SELECT email, username, hash FROM users
-				WHERE email LIKE ${email}
-				OR username LIKE ${username}
+				WHERE (email LIKE ${email} OR username LIKE ${username})
+				AND hashed_pwd =
 			`);
 		if (!result) {
-			throw new Error("Credentials don't match our records");
-		}
-
-		const isValidPassword = await compareFn(result.hash);
-
-		if (!isValidPassword) {
 			throw new Error("Credentials don't match our records");
 		}
 		return result;
@@ -61,22 +51,29 @@ const updateUsersEmail = async (
 	db,
 	{ email, username }, //parámetros que van a tomarse
 	{ newEmail }, // Columna que se quiere cambiar
-	uploadFn //función currificada
+	compareFn //función currificada
 ) => {
 	try {
+		if(!username && !email){
+			throw new Error("Please input your username or email")
+		}
 		const result = db.transaction(async tnx => {
 			const user = await getUserData(tnx, { email, username})
 			if(!user)
 				throw new Error ("Credentials don't match our records")
 					await tnx.maybeOne(sql`
 						UPDATE users
-						SET email = ${email} updated_at = now()
-						WHERE username = ${username} AND email=${email}
+						SET email = ${newEmail} updated_at = now()
+						WHERE (username = ${username} OR email=${email}) AND hashed_pwd=${}
 			`)};
+			const isValidPassword = await compareFn(result.hash);
+				if(!isValidPassword){
+					throw new Error("Incorrect password");
+		}
 		return result
 
 		} catch (error) {
-		console.info("⛔ error at updateUsersEmail query: ", error.message);
+		console.info("⛔ Error at updateUsersEmail query: ", error.message);
 		return false
 		}
 };
