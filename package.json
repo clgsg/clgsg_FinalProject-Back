@@ -7,7 +7,7 @@
 		"dev": "nodemon index",
 		"deploy": "git push heroku master",
 		"st": "node index",
-		"start": "serve -s build",
+		"start": "node index.js",
 		"test": "node test.js",
 		"docker:up": "docker-compose up",
 		"docker:stop": "docker-compose stop",
