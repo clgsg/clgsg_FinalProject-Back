@@ -1,5 +1,5 @@
 const { sql } = require("slonik");
-const { encrypt, createActivationToken } = require("../../helpers/hash");
+const { encrypt, createActivationToken } = require("../../helpers/auth/hash");
 
 
 

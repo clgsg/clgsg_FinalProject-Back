@@ -1,5 +1,5 @@
 const { createUser } = require("../../queries/auth");
-const { encrypt, createActivationToken } = require("../../helpers/hash");
+const { encrypt, createActivationToken } = require("../../helpers/auth/hash");
 const { sendMail } = require("../../helpers/mailer");
 
 module.exports = (db) => async (req, res, next) => {
