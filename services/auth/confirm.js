@@ -6,12 +6,12 @@ module.exports = (db) => async (req, res, next) => {
 
 	const [result] = await confirmUser(db, { confirmationToken });
 	if (!confirmationToken) {
-		return next({ error: new Error("Something went wrong") });
+		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
 	}
 	if (!result || result === false) {
 		return next({
 			statusCode: 400,
-			error: new Error("Invalid token"),
+			error: new Error("Token no válido"),
 		});
 	}
 	await sendMail.confirmation({
@@ -23,7 +23,7 @@ module.exports = (db) => async (req, res, next) => {
 		success: true,
 		message: "Account activated, email sent to user",
 		data: {
-			info: "Your accopunt has been activated!"
+			info: "¡Has activado tu cuenta!"
 		}
 	});
 };

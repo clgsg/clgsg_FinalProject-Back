@@ -1,5 +1,5 @@
 const { createUser } = require("../../queries/auth");
-const { encrypt, createActivationToken } = require("../../helpers/hash");
+const { encrypt, createActivationToken } = require("../../helpers/auth/hash");
 const { sendMail } = require("../../helpers/mailer");
 
 module.exports = (db) => async (req, res, next) => {
@@ -7,7 +7,7 @@ module.exports = (db) => async (req, res, next) => {
 	console.info("Data: ", email, username, password);
 
 	if (!email || !username || !password) {
-		return next({ error: new Error("All fields are mandatory") });
+		return next({ error: new Error("Todos los campos son obligatorios") });
 	}
 	const hashed_pwd = await encrypt(password);
 
@@ -22,7 +22,7 @@ module.exports = (db) => async (req, res, next) => {
 	});
 
 	if (result === false) {
-		return next({ error: new Error("Something went wrong") });
+		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
 	}
 
 	const mailResult = await sendMail({ to: email, confirmationToken });
@@ -31,7 +31,7 @@ module.exports = (db) => async (req, res, next) => {
 	res.status(200).json({
 		success: true,
 		data: {
-			info: "Message sent successfully",
+			info: "Hemos enviado un mensaje a tu cuenta",
 		},
 	});
 };

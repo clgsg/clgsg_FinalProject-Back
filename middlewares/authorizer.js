@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 	if (user === false) {
 		return next({
 			statusCode: 401,
-			error: new Error("Unauthorized"),
+			error: new Error("No autorizado"),
 		});
 	}
 	res.locals.user = user;
