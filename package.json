@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "nodemon index.js",
 		"deploy": "git push heroku master",
-		"start": "node index.js",
+		"st": "node index.js",
+		"start": "serve -s build",
 		"test": "node test.js",
 		"docker:up": "docker-compose up",
 		"docker:stop": "docker-compose stop",
