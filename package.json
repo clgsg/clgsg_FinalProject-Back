@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon index.js",
+		"dev": "nodemon index",
 		"deploy": "git push heroku master",
-		"st": "node index.js",
+		"st": "node index",
 		"start": "serve -s build",
 		"test": "node test.js",
 		"docker:up": "docker-compose up",
@@ -33,10 +33,10 @@
 		"dotenv": "^10.0.0",
 		"express": "^4.17.1",
 		"jsonwebtoken": "^8.5.1",
-		"nodemailer": "^6.7.0",
-		"slonik": "^24.1.2",
 		"morgan": "^1.10.0",
-		"nodemon": "^2.0.14"
-	},
-	"devDependencies": {}
+		"nodemailer": "^6.7.0",
+		"nodemon": "^2.0.14",
+		"serve": "^13.0.2",
+		"slonik": "^24.1.2"
+	}
 }
