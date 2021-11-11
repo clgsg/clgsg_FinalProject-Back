@@ -1,7 +1,4 @@
 const { sql } = require("slonik");
-const { encrypt, createActivationToken } = require("../../helpers/auth/hash");
-
-
 
 const userExists = async (db, { email, username }) => {
 	return await db.maybeOne(sql`

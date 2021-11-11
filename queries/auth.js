@@ -12,11 +12,8 @@ const confirmUser = async (db, { token }) => {
 			if (!rowCount) throw new Error(" token");
 			await tx.query(sql`
 				UPDATE users
-				SET
-				activation_token = null,
-				updated_at = now()
-				WHERE
-				activation_token = ${token}
+				SET activation_token = null, updated_at = now()
+				WHERE activation_token = ${token}
       `);
 			return rows;
 		});
@@ -42,14 +39,14 @@ const updateToken = async (
 	}
 };
 
-const getByToken = async (db, token) => {
+const getUserByToken = async (db, token) => {
 	try {
 		const { email, username } = await db.one(
 			sql`SELECT username, email FROM users WHERE activation_token LIKE ${token}`
 		);
 		return { email, username };
 	} catch (error) {
-		console.info("⛔ Error at getByToken query: ", error.message);
+		console.info("⛔ Error at getUserByToken query: ", error.message);
 		return false;
 	}
 };
@@ -71,6 +68,6 @@ module.exports = {
 	userExists,
 	confirmUser,
 	updateToken,
-	getByToken,
+	getUserByToken,
 	updatePassword,
 };

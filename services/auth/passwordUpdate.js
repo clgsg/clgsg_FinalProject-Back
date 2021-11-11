@@ -1,12 +1,12 @@
 const { hash } = require("../../helpers/auth/hash");
-const { getByToken } = require("../../queries/auth");
+const { getUserByToken } = require("../../queries/auth");
 const { updateUserPassword } = require("../../queries/users");
 
 const newPassword = (db) => async (req, res, next) => {
 	const { email, token } = req.query;
 	const { password } = req.body;
 
-	const userCheck = await getByToken(db, token);
+	const userCheck = await getUserByToken(db, token);
 
 	if (!userCheck || userCheck.email !== email) {
 		return next({ error: new Error("Las credenciales no son válidas") });
