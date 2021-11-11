@@ -9,7 +9,7 @@ const newPassword = (db) => async (req, res, next) => {
 	const userCheck = await getByToken(db, token);
 
 	if (!userCheck || userCheck.email !== email) {
-		return next({ error: new Error("Data don't match") });
+		return next({ error: new Error("Las credenciales no son válidas") });
 	}
 	const newHash = await hash.encrypt(password);
 
@@ -19,12 +19,12 @@ const newPassword = (db) => async (req, res, next) => {
 	});
 
 	if (!newUser) {
-		return next({ error: new Error("Error happened") });
+		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
 	}
 
 	res.status(200).json({
 		success: true,
-		info: "Password has been changed correctly.",
+		info: "¡Contraseña cambiada!",
 	});
 };
 
