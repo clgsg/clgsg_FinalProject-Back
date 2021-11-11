@@ -14,9 +14,9 @@ const db = require("./config/db");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(require("./services")(db));
 
+console.log('Entra')
 app.use(require("./middlewares/pathNotFound"));
 
 app.use(require("./middlewares/error"));

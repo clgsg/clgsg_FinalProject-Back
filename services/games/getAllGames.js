@@ -10,13 +10,13 @@ module.exports = (db) => async (req, res) => {
 	res.status(200).json({
 		resultsPerPage: perPage,
 
-		prevPage: page - 1 ? `/products?page=${page - 1}` : null,
+		prevPage: page - 1 ? `/games?page=${page - 1}` : null,
 		currentPage: page,
-		nextPage: totalPages > page ? `/products?page=${page + 1}` : null,
+		nextPage: totalPages > page ? `/games?page=${page + 1}` : null,
 
-		totalProducts: items,
+		totalGames: items,
 		totalPages: totalPages,
 
-		products: query,
+		games: query,
 	});
 };

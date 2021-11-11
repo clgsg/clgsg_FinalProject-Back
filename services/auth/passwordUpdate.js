@@ -28,4 +28,4 @@ const newPassword = (db) => async (req, res, next) => {
 	});
 };
 
-module.exports = {newPassword}
+module.exports = newPassword

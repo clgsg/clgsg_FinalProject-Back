@@ -1,4 +1,4 @@
-const { getBySearch } = require("../../queries/products");
+const { getBySearch } = require("../../queries/games");
 
 //TODO: adaptar a filtros
 // module.exports = (db) => async (req, res, next) => {
