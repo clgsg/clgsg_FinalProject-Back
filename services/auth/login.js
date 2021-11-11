@@ -1,6 +1,5 @@
-const { hash} = require("../../helpers/auth/hash");
-const { serialize } = require("../../helpers");
-const { getUserByEmailOrUsername } = require("../../queries/auth");
+const { hash, serialize} = require("../../helpers");
+const { getUserByEmailOrUsername } = require("../../queries/users");
 
 const login = (db) => async (req, res, next) => {
 	const { email, username, password } = req.body;

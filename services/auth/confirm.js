@@ -11,7 +11,7 @@ module.exports = (db) => async (req, res, next) => {
 	if (!result || result === false) {
 		return next({
 			statusCode: 400,
-			error: new Error("Token no válido"),
+			error: new Error("Ha habido un fallo de identificación"),
 		});
 	}
 	await sendMail.confirmation({
@@ -21,7 +21,7 @@ module.exports = (db) => async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		message: "Account activated, email sent to user",
+		message: "Cuenta activada. Se ha enviado un mensaje a tu cuenta de email",
 		data: {
 			info: "¡Has activado tu cuenta!"
 		}
