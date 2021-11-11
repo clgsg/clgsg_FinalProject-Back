@@ -5,7 +5,7 @@ const login = (db) => async (req, res, next) => {
 	const { email, username, password } = req.body;
 
 	if ((!email && !username) || !password) {
-		return next({ error: new Error("Given data failed") });
+		return next({ error: new Error("¿Seguro que esos son tus datos de acceso?") });
 	}
 
 	const user = await getUserByEmailOrUsername(
@@ -16,7 +16,7 @@ const login = (db) => async (req, res, next) => {
 	);
 
 	if (!user) {
-		return next({ error: new Error("Something went wrong") });
+		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
 	}
 
 	const token = serialize(res, {

@@ -10,7 +10,7 @@ module.exports = (db) => async (req, res, next) => {
 	if (result === false) {
 		return next({
 			status: 500,
-			message: new Error("Something went wrong"),
+			message: new Error("¡Vaya! Parece que ha habido un problemilla"),
 		});
 	}
 
