@@ -32,7 +32,7 @@ const getUserData = async (db, { email = "", username = "" }) => {
 		`);
 		return user;
 	} catch (error) {
-		console.info("⛔ Error at getUserData: ", error.message);
+		console.info("⛔ Error at getUserData query: ", error.message);
 		return false;
 	}
 };
@@ -142,6 +142,27 @@ const updateProfilePic = async (
 		}
 };
 
+const getUsersGames = async (db, { userid }) => {
+	try {
+		if (!userid) {
+			throw new Error("¡Vaya! Parece que ha habido un problemilla.");
+		}
+		const result = db.query(sql`
+			SELECT g.sport, g.game_date, g.game_time, g.game_venue, g.game_gender, g.adapted
+			FROM games as g
+			INNER JOIN participants AS p
+			ON g.gameid = p.g_id
+			INNER JOIN users AS u
+			ON u.userid = p.u_id
+			WHERE p.u_id=${userid}
+			`);
+		return result;
+	} catch (error) {
+		console.info("⛔ Error at getUsersGames query: ", error.message);
+		return false;
+	}
+};
+
 module.exports = {
 	userExists,
 	createUser,
@@ -150,4 +171,5 @@ module.exports = {
 	updateEmail,
 	getAllUsers,
 	updateProfilePic,
+	getUsersGames,
 	}

@@ -1,4 +1,4 @@
-const { updateParticipants, getParticipants } = require("../../queries/users");
+const { updateParticipants, getParticipants } = require("../../queries/participants");
 
 module.exports = (db) => async (req, res, next) => {
 	await updateParticipants(db, {userid, gameid});

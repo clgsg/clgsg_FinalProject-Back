@@ -5,7 +5,6 @@ const router = require("express").Router();
 module.exports = (db) => {
 	router.get("/allgames", require("./getAllGames")(db));
 	router.post("/new/:gameid", require("./createGame")(db));
-	// router.get("/gusergames", authorization, require("./getUsersGames")(db));
 	router.get("/byuserspreferences", authorization, require("./getGamesByUsersPreferences")(db));
 	router.get("/filtered", authorization, require("./getGamesByFilter")(db));
 

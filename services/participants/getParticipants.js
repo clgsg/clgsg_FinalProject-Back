@@ -1,4 +1,4 @@
-const { getParticipants } = require("../../queries/users");
+const { getParticipants } = require("../../queries/participants");
 
 
 module.exports = (db) => async (req, res, next) => {
