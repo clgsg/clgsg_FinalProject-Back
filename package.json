@@ -7,7 +7,7 @@
 		"dev": "nodemon index",
 		"deploy": "git push heroku master",
 		"st": "node index",
-		"start": "serve -s build",
+		"start": "node index.js",
 		"test": "node test.js",
 		"docker:up": "docker-compose up",
 		"docker:stop": "docker-compose stop",
@@ -37,6 +37,7 @@
 		"nodemailer": "^6.7.0",
 		"nodemon": "^2.0.14",
 		"serve": "^13.0.2",
-		"slonik": "^24.1.2"
+		"slonik": "^24.1.2",
+		"webpack": "^5.63.0"
 	}
 }

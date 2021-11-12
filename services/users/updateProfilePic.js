@@ -1,11 +1,11 @@
-const { updateUser, getUserData } = require("../../queries/users");
+const { updateProfilePic } = require("../../queries/users");
 
 module.exports = (db) => async (req, res, next) => {
 	const paramsContent = { ...req.body };
 
 	const { username } = res.locals.user;
 
-	const result = await updateUser(db, paramsContent, username);
+	const result = await updateProfilePic(db, paramsContent, username);
 
 	if (result === false) {
 		return next({
@@ -14,17 +14,10 @@ module.exports = (db) => async (req, res, next) => {
 		});
 	}
 
-	const user = await getUserData(db, { username });
-
-	res.locals.user = {
-		username: paramsContent.username,
-		email: paramsContent.email,
-	};
-
 	res.status(200).json({
 		status: true,
 		data: {
-			user,
+			new_profile_pic: res.profile_pic,
 		},
 	});
 };

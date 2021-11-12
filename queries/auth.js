@@ -1,5 +1,4 @@
 const { sql } = require("slonik");
-const {newPassword} = require('../services/auth/passwordUpdate')
 const {userExists} = require('./users')
 
 const confirmUser = async (db, { token }) => {
@@ -52,7 +51,7 @@ const getUserByToken = async (db, token) => {
 };
 
 
-const updatePassword = async (db, user) => {
+const updatePassword = async (db, {user}) => {
 	try {
 		await db.query(
 			sql`UPDATE users SET hashed_pwd=${user.newPassword}, activation_token=NULL WHERE email LIKE ${user.email}`
