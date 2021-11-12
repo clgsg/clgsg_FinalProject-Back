@@ -1,14 +1,14 @@
-const { getUpcomingGames } = require("../../queries/games");
+const { getParticipants } = require("../../queries/users");
 
 
 module.exports = (db) => async (req, res, next) => {
 
-	const result = await getUpcomingGames(db, {now()});
+	const result = await getParticipants(db, {gameid});
 
 	if (result === false) {
 		return next({
 			statusCode: 404,
-			error: new Error("No se han encontrado pachangas próximas"),
+			error: new Error("No se han encontrado participantes"),
 		});
 	}
 

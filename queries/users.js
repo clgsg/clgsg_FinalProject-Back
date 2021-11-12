@@ -99,19 +99,17 @@ const updateEmail = async (
 		}
 };
 
-
 const getAllUsers = async (db) => {
 	try {
-		await db.query(sql`
+		const result = await db.query(sql`
 			SELECT * FROM users
 		`)
-		return true;
+		return result;
 	} catch (error) {
 		console.info("⛔ Error at getAllUsers query: ", error.message);
 		return false;
 	}
 }
-
 
 const updateProfilePic = async (
 	db,
@@ -152,4 +150,4 @@ module.exports = {
 	updateEmail,
 	getAllUsers,
 	updateProfilePic,
-}
+	}
