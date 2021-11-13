@@ -30,6 +30,7 @@ const getVenueByName = async (db, {search, venue_name}) => {
 	}
 };
 
+
 module.exports = {
 	getVenueInfo,
 	getVenueByName,
