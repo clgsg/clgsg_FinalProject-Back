@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
 const encrypt = async (password) => {
+	console.log("password:", password)
 	const rounds = Number(process.env.SALT);
 	const salt = await bcrypt.genSalt(rounds);
 	return await bcrypt.hash(password, salt);
