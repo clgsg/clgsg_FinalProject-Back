@@ -1,9 +1,9 @@
 const { getUpcomingGames } = require("../../queries/games");
 
 
-module.exports = (db) => async (req, res, next) => {
+module.exports = (db, userid) => async (req, res, next) => {
 
-	const result = await getUpcomingGames(db, {now()});
+	const [result] = await getUpcomingGames(db, {userid});
 
 	if (result === false) {
 		return next({

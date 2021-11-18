@@ -1,9 +1,9 @@
-const { getParticipants } = require("../../queries/users");
+const { getUsersGames } = require("../../queries/users");
 
 module.exports = (db) => async (req, res, next) => {
 
-	const { gameid } = req.query;
-	const result = await getParticipants(db, { gameid });
+	const { userid } = req.query;
+	const result = await getUsersGames(db, { userid });
 
 	if (result === false) {
 		return next({

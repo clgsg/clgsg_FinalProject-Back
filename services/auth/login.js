@@ -14,7 +14,7 @@ const login = (db) => async (req, res, next) => {
 		username,
 		hash.compare(password)
 	);
-
+		console.log(user)
 	if (!user) {
 		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
 	}
@@ -23,7 +23,7 @@ const login = (db) => async (req, res, next) => {
 		email: user.email,
 		username: user.username,
 	});
-
+		console.log(token)
 	res.status(200).json({
 		success: true,
 		data: { access_token: token },

@@ -1,24 +1,22 @@
 const { createUser } = require("../../queries/auth");
-const { encrypt, createActivationToken } = require("../../helpers/auth/hash");
+const { encrypt, createToken } = require("../../helpers/auth/hash");
 const { sendMail } = require("../../helpers/mailer");
 
 module.exports = (db) => async (req, res, next) => {
+	console.info("Llegó: ", req.body);
 	const { email, username, password } = req.body;
-	console.info("Data: ", email, username, password);
 
 	if (!email || !username || !password) {
 		return next({ error: new Error("Todos los campos son obligatorios") });
 	}
-	const hashed_pwd = await encrypt(password);
+	// const hashed_pwd = await encrypt(password);
 
-	const confirmationToken = createActivationToken();
-	console.info("Confirmation: ", confirmationToken);
+	// const confirmationToken = createToken();
+	// console.info("Confirmation: ", confirmationToken);
 
 	const result = await createUser(db, {
 		email,
-		username,
-		hashed_pwd,
-		confirmationToken,
+		password
 	});
 
 	if (result === false) {
