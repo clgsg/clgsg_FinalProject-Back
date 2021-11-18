@@ -5,7 +5,9 @@ const app = express();
 const morgan = require("morgan");
 const db = require("./config/db")
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,3 +22,7 @@ app.use(require("./middlewares/pathNotFound"));
 app.use(require("./middlewares/error"));
 
 app.listen(process.env.PORT || 3001, () => console.info("Listening..."))
+
+// export function cookieParser() {
+// 	throw new Error("Function not implemented.");
+// }
