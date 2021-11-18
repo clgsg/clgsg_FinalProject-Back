@@ -12,8 +12,8 @@ const createUser = async (db, { email, username, hashed_pwd, activation_token })
 		const result = await userExists(db, { email, username });
 		if (result) throw new Error("⛔ Crea otro usuario o usa otro email");
 		return await db.query(sql`
-			INSERT INTO users ( email, username, hash, activation_token )
-			VALUES ( ${email}, ${username}, ${hashed_pwd}, ${activation_token} )
+			INSERT INTO users ( email, hash, activation_token )
+			VALUES ( ${email}, ${hashed_pwd}, ${activation_token} )
     `);
 	} catch (e) {
 		console.info("⛔ Error at createUser query:", e.message);

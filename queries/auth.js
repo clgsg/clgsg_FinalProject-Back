@@ -1,5 +1,6 @@
 const { sql } = require("slonik");
 const {userExists} = require('./users')
+const {encrypt} = require('../helpers/auth/hash')
 
 const confirmUser = async (db, { token }) => {
 	try {
@@ -63,10 +64,27 @@ const updatePassword = async (db, {user}) => {
 	}
 };
 
+const createUser = async (db, {email, password}) => {
+	try {
+		const hashed_password= await encrypt(password)
+
+		await db.query(
+			sql`
+			INSERT INTO users (email, hashed_pwd)
+			VALUES (${email}, ${hashed_password})
+		`);
+		return true;
+	} catch (error) {
+		console.info("⛔ Error at createUser query:", error.message);
+		return false;
+	}
+}
+
 module.exports = {
 	userExists,
 	confirmUser,
 	updateToken,
 	getUserByToken,
 	updatePassword,
+	createUser,
 };
