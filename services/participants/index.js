@@ -2,8 +2,8 @@
 const router = require("express").Router();
 
 module.exports = (db) => {
-	// router.get("/:gameid", authorization, require("./getParticipantsByGameID")(db));
-	router.put("/:gameid/:userid", require("./updateParticipants")(db));
+	router.get("/:gameid", require("./getParticipants")(db));
+	router.put("/:gameid/:username", require("./addParticipant")(db));
 
 	return router;
 };
