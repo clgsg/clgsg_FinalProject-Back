@@ -1,6 +1,5 @@
-const { checkIfUserIsInGame} = require("../helpers/participantshelpers")
-
 const getParticipants = async (db, { gameid }) => {
+
 	try {
 		const result = await db.query(sql`
 			SELECT u.username
@@ -19,11 +18,11 @@ const getParticipants = async (db, { gameid }) => {
 };
 
 const updateParticipants = async (db, { userid, gameid }) => {
+
 	try {
 		const result = await db.query(sql`
 			INSERT INTO participants (u_id, g_id)
 			VALUES (${userid}, ${gameid})
-			//todo: que userid provenga del usuario actual y gameid corresponda al juego recién creado.
          `);
 		return result.rows;
 	} catch (error) {

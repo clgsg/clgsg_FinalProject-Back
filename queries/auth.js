@@ -1,6 +1,6 @@
 const { sql } = require("slonik");
+const { createQueryId } = require("slonik/dist/src/utilities");
 const {userExists} = require('./users')
-const {encrypt} = require('../helpers/auth/hash')
 
 const confirmUser = async (db, { token }) => {
 	try {
@@ -64,27 +64,62 @@ const updatePassword = async (db, {user}) => {
 	}
 };
 
-const createUser = async (db, {email, password}) => {
+const signup = async (db, {email, username, password}) => {
 	try {
-		const hashed_password= await encrypt(password)
+		// const hashed_pwd= await encrypt(password)
 
 		await db.query(
 			sql`
-			INSERT INTO users (email, hashed_pwd)
-			VALUES (${email}, ${hashed_password})
+			INSERT INTO users (email, username, hashed_pwd)
+			VALUES (${email}, ${username}, ${password})
 		`);
 		return true;
 	} catch (error) {
-		console.info("⛔ Error at createUser query:", error.message);
+		console.info("⛔ Error at signup query:", error.message);
 		return false;
 	}
 }
 
+
+// const getUserByEmailOrUsername = async (db, { email, username}) => {
+// 	try {
+// 		const result = await db.one(
+// 			sql`
+// 				SELECT * FROM users
+// 				WHERE email LIKE ${email} OR username LIKE ${username}
+// 			`);
+// 		if (!result) {
+// 			throw new Error("Las credenciales no son válidas");
+// 		}
+// 		return result;
+// 	} catch (error) {
+// 		console.info("⛔ Error at getUserByEmailOrUsername query:", error.message);
+// 		return false;
+// 	}
+// };
+
+
+const login = async (db, {email, username, password}) => {
+	try {
+		const result = await db.one(
+			sql`
+			SELECT * FROM users
+			WHERE (email LIKE ${email} OR username LIKE ${username})
+			AND hashed_pwd=${password}
+			`
+		);
+		return result
+	} catch (error) {
+		console.info("⛔ Error at login query:", error.message);
+	}
+}
 module.exports = {
 	userExists,
 	confirmUser,
 	updateToken,
 	getUserByToken,
 	updatePassword,
-	createUser,
+	signup,
+	// getUserByEmailOrUsername,
+	login,
 };
