@@ -1,5 +1,4 @@
 const { sql } = require("slonik");
-const { createQueryId } = require("slonik/dist/src/utilities");
 const {userExists} = require('./users')
 
 const confirmUser = async (db, { token }) => {
@@ -52,10 +51,12 @@ const getUserByToken = async (db, token) => {
 };
 
 
-const updatePassword = async (db, {user}) => {
+const updatePassword = async (db, { email, password, newPassword }) => {
 	try {
-		await db.query(
-			sql`UPDATE users SET hashed_pwd=${user.newPassword}, activation_token=NULL WHERE email LIKE ${user.email}`
+		await db.one(
+			sql`UPDATE users
+			SET hashed_pwd=${newPassword}
+			WHERE email LIKE ${email} AND hashed_pwd=${password}`
 		);
 		return true;
 	} catch (error) {
@@ -99,7 +100,7 @@ const signup = async (db, {email, username, password}) => {
 // };
 
 
-const login = async (db, {email, username, password}) => {
+const correctCredentials = async (db, {email, username, password}) => {
 	try {
 		const result = await db.one(
 			sql`
@@ -110,7 +111,7 @@ const login = async (db, {email, username, password}) => {
 		);
 		return result
 	} catch (error) {
-		console.info("⛔ Error at login query:", error.message);
+		console.info("⛔ Error at correctCredentials query:", error.message);
 	}
 }
 module.exports = {
@@ -121,5 +122,5 @@ module.exports = {
 	updatePassword,
 	signup,
 	// getUserByEmailOrUsername,
-	login,
+	correctCredentials,
 };

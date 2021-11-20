@@ -1,26 +1,24 @@
-const { hash } = require("../../helpers/auth/hash");
-const { getUserByToken } = require("../../queries/auth");
-const { updateUserPassword } = require("../../queries/users");
+const { updatePassword, correctCredentials } = require("../../queries/auth");
 
-const newPassword = (db) => async (req, res, next) => {
-	const { email, token } = req.query;
-	const { password } = req.body;
-
-	const userCheck = await getUserByToken(db, token);
-
-	if (!userCheck || userCheck.email !== email) {
-		return next({ error: new Error("Las credenciales no son válidas") });
+const passwordUpdate = (db) => async (req, res, next) => {
+	const { email, password, newPassword } = req.body;
+	if(!email || !password){
+		return next({ error: new Error("Introduce tus credenciales actuales.")});
 	}
-	const newHash = await hash.encrypt(password);
 
-	const newUser = await updateUserPassword(db, {
-		newHash,
-		email: userCheck.email,
-	});
-
-	if (!newUser) {
-		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
+	if (!newPassword) {
+		return next({ error: new Error("Introduce tu nueva contraseña.") });
 	}
+
+	if (newPassword === password) {
+		return next({error: new Error("La nueva contraseña debe ser distinta de la actual."),});
+	}
+
+	if (correctCredentials(email, password) === false) {
+		return next({ error: new Error("Las credenciales no son válidas.") });
+	};
+
+	await updatePassword(db, { email, password, newPassword });
 
 	res.status(200).json({
 		success: true,
@@ -28,4 +26,4 @@ const newPassword = (db) => async (req, res, next) => {
 	});
 };
 
-module.exports = newPassword
+module.exports = passwordUpdate
