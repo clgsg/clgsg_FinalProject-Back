@@ -29,7 +29,10 @@ const updateToken = async (
 ) => {
 	try {
 		await db.query(
-			sql`UPDATE users SET activation_token = ${token} WHERE email LIKE ${email} OR username LIKE ${username}`
+			sql`
+			UPDATE users
+			SET activation_token = ${token}  updated_at = now()
+			WHERE email LIKE ${email} OR username LIKE ${username}`
 		);
 		return true;
 	} catch (error) {
@@ -55,7 +58,7 @@ const updatePassword = async (db, { email, password, newPassword }) => {
 	try {
 		await db.one(
 			sql`UPDATE users
-			SET hashed_pwd=${newPassword}
+			SET hashed_pwd=${newPassword}  updated_at = now()
 			WHERE email LIKE ${email} AND hashed_pwd=${password}`
 		);
 		return true;
@@ -114,6 +117,19 @@ const correctCredentials = async (db, {email, username, password}) => {
 		console.info("⛔ Error at correctCredentials query:", error.message);
 	}
 }
+
+const updateEmail = async (db, { email, newEmail, password }) => {
+	try {
+		await db.one(sql`
+			UPDATE users
+			SET email = ${newEmail} updated_at = now()
+			WHERE email=${email} AND hashed_pwd=${password}`);
+		return true;
+	} catch (error) {
+		console.info("⛔ Error at updateEmail query:", error.message);
+		return false;
+	}
+};
 module.exports = {
 	userExists,
 	confirmUser,
@@ -123,4 +139,5 @@ module.exports = {
 	signup,
 	// getUserByEmailOrUsername,
 	correctCredentials,
+	updateEmail,
 };

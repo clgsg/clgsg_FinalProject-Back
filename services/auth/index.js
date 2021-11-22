@@ -6,6 +6,7 @@ module.exports = (db) => {
 	router.get("/login", require("./login")(db));
 	// router.put("/password/forgotten", require("./passwordForgotten")(db));
 	router.put("/password/update", require("./passwordUpdate")(db));
+	router.put("/email/update", require("./emailUpdate"))
 
 	return router;
 };

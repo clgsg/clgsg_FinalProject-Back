@@ -123,7 +123,6 @@ const getUsersGames = async (db, { userid }) => {
 module.exports = {
 	userExists,
 	getUserData,
-	updateEmail,
 	getAllUsers,
 	updateProfilePic,
 	getUsersGames,
