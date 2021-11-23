@@ -29,21 +29,33 @@ const getAllGames = async (db) => {
 	}
 }
 
-// const getUpcomingGames = async (db) => {
-// 	try {
-// 		const result = await db.query(sql`
-// 			SELECT sport, game_date, game_time
-// 			FROM games
-// 			WHERE game_date BETWEEN NOW()::TIMESTAMP AND (now()::TIMESTAMP + INTERVAL '30 days')
-// 			ORDER BY game_date , game_time ;
-// 		`);
-// 		return result.rows
-// 	} catch (error) {
-// 		console.info("⛔ Error at getUpcomingGames query: ", error.message);
-// 		return false;
-// 	}
+const getUpcomingGames = async (db) => {
+	try {
+		const result = await db.query(sql`
+			SELECT sport, game_date, game_time
+			FROM games
+			WHERE game_date BETWEEN NOW()::TIMESTAMP AND (now()::TIMESTAMP + INTERVAL '30 days')
+			ORDER BY game_date , game_time ;
+		`);
+		return result.rows
+	} catch (error) {
+		console.info("⛔ Error at getUpcomingGames query: ", error.message);
+		return false;
+	}
+}
 
-// }
+const getGameInfo = async (db, gameid) => {
+	try {
+		const result = await db.query(sql`
+		SELECT sport, game_date, game_time, game_gender, adapted, game_venue, game_level
+		FROM games
+		WHERE gameid=${gameid};
+		`);
+		return result
+	} catch (error) {
+
+	}
+}
 
 // const getGamesByUsersPreferences = async (db) => {
 //  	try {
@@ -84,7 +96,8 @@ const getAllGames = async (db) => {
 module.exports = {
 	newGame,
 	getAllGames,
-// 	getUpcomingGames,
+	getUpcomingGames,
+	getGameInfo,
 // 	getGamesByUsersPreferences,
 // 	getGamesByFilter,
 	};
