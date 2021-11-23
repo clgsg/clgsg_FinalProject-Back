@@ -1,5 +1,4 @@
 const { sql } = require("slonik");
-// const {getUserByToken} = require("./auth")
 
 
 const newGame = async (db, {sport, game_date="", game_time="", game_level="", game_gender="", adapted="", game_venue="", notes=""}) => {
@@ -20,7 +19,8 @@ const getAllGames = async (db) => {
 	try {
 		const result = await db.query(sql`
 			SELECT sport, game_date, game_time, game_gender, adapted, game_venue, game_level
-			FROM games;
+			FROM games
+			ORDER BY game_date , game_time ;
 		`);
 		return result
 	} catch (error) {
