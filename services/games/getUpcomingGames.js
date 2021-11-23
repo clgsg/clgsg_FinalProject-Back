@@ -3,7 +3,7 @@ const { getUpcomingGames } = require("../../queries/games");
 
 module.exports = (db) => async (req, res, next) => {
 
-	const [result] = await getUpcomingGames(db);
+	const result = await getUpcomingGames(db);
 
 	if (result === false) {
 		return next({
