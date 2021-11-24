@@ -1,33 +1,33 @@
-const { hash, serialize} = require("../../helpers");
-const { getUserByEmailOrUsername } = require("../../queries/users");
+const { login } = require("../../queries/auth");
 
-const login = (db) => async (req, res, next) => {
+module.exports = (db) => async (req, res, next) => {
+
 	const { email, username, password } = req.body;
+	const result = await login(db, { email, username, password });
 
-	if ((!email && !username) || !password) {
-		return next({ error: new Error("¿Seguro que esos son tus datos de acceso?") });
+	if (!username && !email && !password) {
+		return next({ error: new Error("Introduce tus credenciales") });
 	}
 
-	const user = await getUserByEmailOrUsername(
-		db,
-		email,
-		username,
-		hash.compare(password)
-	);
-
-	if (!user) {
-		return next({ error: new Error("¡Vaya! Parece que ha habido un problemilla") });
+	if (!username && !email) {
+		return next({ error: new Error("Introduce tu email y usuario") });
 	}
-
-	const token = serialize(res, {
-		email: user.email,
-		username: user.username,
-	});
+	if (!password) {
+		throw new Error("Introduce tu contraseña");
+	}
+	if (!result || result === false) {
+		return next({
+			statusCode: 400,
+			error: new Error("Ha habido un fallo de identificación"),
+		});
+	}
 
 	res.status(200).json({
 		success: true,
-		data: { access_token: token },
+		message: "'Güélcom' a Megustalapachanga",
+		data: {
+			info: "¿Ya sabes a qué quieres jugar?",
+		},
 	});
 };
 
-module.exports = login;

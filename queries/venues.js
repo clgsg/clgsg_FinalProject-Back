@@ -1,5 +1,19 @@
 const {sql} = require("slonik")
 
+const getAllVenues = async (db, venue_name) => {
+	try {
+		const result = await db.query(sql`
+				SELECT * FROM venues
+         `);
+
+		return result.rows;
+	} catch (error) {
+		console.info("⛔ Error at getAllVenues query: ", error.message);
+		return false;
+	}
+};
+
+
 const getVenueInfo = async (db, venue_name) => {
 	try {
 		const result = await db.query(sql`
@@ -32,6 +46,7 @@ const getVenueByName = async (db, {search, venue_name}) => {
 
 
 module.exports = {
+	getAllVenues,
 	getVenueInfo,
 	getVenueByName,
 };

@@ -1,14 +1,16 @@
-const { checkIfUserIsInGame} = require("../helpers/participantshelpers")
+const { sql } = require("slonik");
+const {usernameToUserid} = require("../helpers/participantshelpers")
+
 
 const getParticipants = async (db, { gameid }) => {
 	try {
 		const result = await db.query(sql`
 			SELECT u.username
-			FROM games as g
+			FROM users as u
 			INNER JOIN participants AS p
-			ON g.gameid = p.g_id
-			INNER JOIN users AS u
 			ON u.userid = p.u_id
+			INNER JOIN games AS g
+			ON g.gameid = p.g_id
 			WHERE g.gameid=${gameid}
          `);
 		return result.rows;
@@ -18,16 +20,29 @@ const getParticipants = async (db, { gameid }) => {
 	}
 };
 
-const updateParticipants = async (db, { userid, gameid }) => {
+const isAParticipant = async (db, username, gameid) => {
+	const thisUser = usernameToUserid(username);
 	try {
-		const result = await db.query(sql`
-			INSERT INTO participants (u_id, g_id)
-			VALUES (${userid}, ${gameid})
-			//todo: que userid provenga del usuario actual y gameid corresponda al juego recién creado.
-         `);
-		return result.rows;
+		await db.query(sql`
+		SELECT *
+		FROM participants
+		WHERE u_id=${thisUser} AND g_id=${gameid}
+		`)
 	} catch (error) {
-		console.info("⛔ Error at updateParticipants query: ", error.message);
+		console.info("⛔ Error at isAParticipant query: ", error.message);
+		return false;
+	}
+}
+
+const addParticipantIfNotInGame = async (db, username, gameid ) => {
+	const thisUser = usernameToUserid(username);
+	try {
+		await db.query(sql`
+			INSERT INTO participants (u_id, g_id)
+			VALUES ('${thisUser}', ${gameid})
+			`);
+	} catch (error) {
+		console.info("⛔ Error at addParticipantIfNotInGame query: ", error.message);
 		return false;
 	}
 };
@@ -35,5 +50,6 @@ const updateParticipants = async (db, { userid, gameid }) => {
 
 module.exports = {
 	getParticipants,
-	updateParticipants,
-}
+	isAParticipant,
+	addParticipantIfNotInGame,
+};

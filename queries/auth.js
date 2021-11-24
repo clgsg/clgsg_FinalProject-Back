@@ -29,7 +29,10 @@ const updateToken = async (
 ) => {
 	try {
 		await db.query(
-			sql`UPDATE users SET activation_token = ${token} WHERE email LIKE ${email} OR username LIKE ${username}`
+			sql`
+			UPDATE users
+			SET activation_token = ${token}  updated_at = now()
+			WHERE email LIKE ${email} OR username LIKE ${username}`
 		);
 		return true;
 	} catch (error) {
@@ -51,10 +54,12 @@ const getUserByToken = async (db, token) => {
 };
 
 
-const updatePassword = async (db, {user}) => {
+const updatePassword = async (db, { email, password, newPassword }) => {
 	try {
-		await db.query(
-			sql`UPDATE users SET hashed_pwd=${user.newPassword}, activation_token=NULL WHERE email LIKE ${user.email}`
+		await db.one(
+			sql`UPDATE users
+			SET hashed_pwd=${newPassword}  updated_at = now()
+			WHERE email LIKE ${email} AND hashed_pwd=${password}`
 		);
 		return true;
 	} catch (error) {
@@ -63,10 +68,76 @@ const updatePassword = async (db, {user}) => {
 	}
 };
 
+const signup = async (db, {email, username, password}) => {
+	try {
+		// const hashed_pwd= await encrypt(password)
+
+		await db.query(
+			sql`
+			INSERT INTO users (email, username, hashed_pwd)
+			VALUES (${email}, ${username}, ${password})
+		`);
+		return true;
+	} catch (error) {
+		console.info("⛔ Error at signup query:", error.message);
+		return false;
+	}
+}
+
+
+// const getUserByEmailOrUsername = async (db, { email, username}) => {
+// 	try {
+// 		const result = await db.one(
+// 			sql`
+// 				SELECT * FROM users
+// 				WHERE email LIKE ${email} OR username LIKE ${username}
+// 			`);
+// 		if (!result) {
+// 			throw new Error("Las credenciales no son válidas");
+// 		}
+// 		return result;
+// 	} catch (error) {
+// 		console.info("⛔ Error at getUserByEmailOrUsername query:", error.message);
+// 		return false;
+// 	}
+// };
+
+
+const correctCredentials = async (db, {email, username, password}) => {
+	try {
+		const result = await db.one(
+			sql`
+			SELECT * FROM users
+			WHERE (email LIKE ${email} OR username LIKE ${username})
+			AND hashed_pwd=${password}
+			`
+		);
+		return result
+	} catch (error) {
+		console.info("⛔ Error at correctCredentials query:", error.message);
+	}
+}
+
+const updateEmail = async (db, { email, newEmail, password }) => {
+	try {
+		await db.one(sql`
+			UPDATE users
+			SET email = ${newEmail} updated_at = now()
+			WHERE email=${email} AND hashed_pwd=${password}`);
+		return true;
+	} catch (error) {
+		console.info("⛔ Error at updateEmail query:", error.message);
+		return false;
+	}
+};
 module.exports = {
 	userExists,
 	confirmUser,
 	updateToken,
 	getUserByToken,
 	updatePassword,
+	signup,
+	// getUserByEmailOrUsername,
+	correctCredentials,
+	updateEmail,
 };

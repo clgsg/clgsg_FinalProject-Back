@@ -1,13 +1,12 @@
 const { getParticipants } = require("../../queries/participants");
 
 
-module.exports = (db) => async (req, res, next) => {
+module.exports = (db, gameid) => async (req, res, next) => {
 
 	const result = await getParticipants(db, {gameid});
 
 	if (result === false) {
 		return next({
-			statusCode: 404,
 			error: new Error("No se han encontrado participantes"),
 		});
 	}
