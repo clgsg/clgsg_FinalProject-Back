@@ -1,19 +1,21 @@
 const { sql } = require("slonik");
 const {userExists} = require('./users')
 
+
+
 const confirmUser = async (db, { token }) => {
 	try {
 		return await db.transaction(async (tx) => {
 			const { rowCount, rows } = await tx.query(sql`
-				SELECT * FROM users
-				WHERE activation_token = ${token}
-      `);
+			SELECT * FROM users
+			WHERE activation_token = ${token}
+			`);
 			if (!rowCount) throw new Error(" token");
 			await tx.query(sql`
-				UPDATE users
-				SET activation_token = null, updated_at = now()
-				WHERE activation_token = ${token}
-      `);
+			UPDATE users
+			SET activation_token = null, updated_at = now()
+			WHERE activation_token = ${token}
+			`);
 			return rows;
 		});
 	} catch (e) {
@@ -69,7 +71,7 @@ const updatePassword = async (db, { email, password, newPassword }) => {
 };
 
 const signup = async (db, {email, username, password}) => {
-	try {
+		try {
 		// const hashed_pwd= await encrypt(password)
 
 		await db.query(
