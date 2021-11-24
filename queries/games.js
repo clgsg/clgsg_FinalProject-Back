@@ -47,7 +47,7 @@ const getUpcomingGames = async (db) => {
 const getGameInfo = async (db, gameid) => {
 	try {
 		const result = await db.query(sql`
-		SELECT sport, game_date, game_time, game_gender, adapted, game_venue, game_level
+		SELECT sport, game_date, game_time, game_gender, adapted, game_venue, notes
 		FROM games
 		WHERE gameid=${gameid};
 		`);
