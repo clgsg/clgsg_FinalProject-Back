@@ -6,7 +6,7 @@ module.exports = (db) => {
 	router.use("/games", require("./games")(db));
 	router.use("/participants", require("./participants")(db))
 	router.use("/users", require("./users")(db));
-	// router.use("/venues", require("./venues")(db));
+	router.use("/venues", require("./venues")(db));
 
 	return router;
 };

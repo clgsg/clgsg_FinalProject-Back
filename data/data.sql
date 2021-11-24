@@ -34,14 +34,14 @@ VALUES ('IDB 2.100 PAU ', 'Avda. de Cerro Milano c/v C/ Peñaranda de Bracamonte
 
 
 
-INSERT INTO users (username, first_name, family_name, email, hashed_pwd, user_gender, birth_date, user_level, pref_sports)
-VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9', 'Hombre', '1989-03-01', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
-('Emmy83', 'Emma', 'Martínez', 'emmy83@gmail.com', 'sakx02nsoaj', 'Mujer', '1983-01-15', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-('AnaIsabel', 'Ana Isabel', 'Martínez', 'anai@yo.com', 'sj192jh9saks', 'Mujer', '1990-09-22', 'Intermedio', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
-('Tiatula49', 'María del Mar', 'Pérez', 'mmar.perez@yahoo.es', 's1kshb9aakj3', 'Mujer', '1994-10-23', 'Intermedio', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-('Estheruki', 'Esther', 'Marzo', 'est_mar@gmail.com', 'kksu40kb026', 'Mujer', '1989-07-07', 'Competición', ARRAY ['fútbol', 'fútbol sala']::sports[]),
-('Karlitox', 'Carlos', 'Romero', 'cromero@yahoo.es', 'aku4kIlsig54', 'Hombre', '1998-12-11', 'Básico', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
-('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', 'Competición', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]);
+INSERT INTO users (username, first_name, family_name, email, hashed_pwd, user_gender, birth_date, pref_sports)
+VALUES ('Frankl89', 'Francisco', 'Sánchez', 'fran_sanchez@yo.com', 'ksjaoa895j9', 'Hombre', '1989-03-01', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
+('Emmy83', 'Emma', 'Martínez', 'emmy83@gmail.com', 'sakx02nsoaj', 'Mujer', '1983-01-15', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+('AnaIsabel', 'Ana Isabel', 'Martínez', 'anai@yo.com', 'sj192jh9saks', 'Mujer', '1990-09-22', ARRAY ['baloncesto', 'fútbol', 'fútbol 7']::sports[]),
+('Tiatula49', 'María del Mar', 'Pérez', 'mmar.perez@yahoo.es', 's1kshb9aakj3', 'Mujer', '1994-10-23', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+('Estheruki', 'Esther', 'Marzo', 'est_mar@gmail.com', 'kksu40kb026', 'Mujer', '1989-07-07', ARRAY ['fútbol', 'fútbol sala']::sports[]),
+('Karlitox', 'Carlos', 'Romero', 'cromero@yahoo.es', 'aku4kIlsig54', 'Hombre', '1998-12-11', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]),
+('ErRamonchu', 'Ramón', 'Fernández', 'rfernadez@yo.com', 'a92jg9basubk', 'Hombre', '1991-02-10', ARRAY ['baloncesto', '3x3', 'fútbol 7']::sports[]);
 
 INSERT INTO games (created_by, sport, game_date, game_time, game_venue, game_level, game_gender, adapted, notes)
 VALUES ('Frankl89', 'baloncesto', '2021-12-19', '16:30:00', 'IDB Aniceto Marinas ', 'Básico', 'Mixto', false, ''),
@@ -54,9 +54,11 @@ VALUES ('Frankl89', 'baloncesto', '2021-12-19', '16:30:00', 'IDB Aniceto Marinas
 
 
 INSERT INTO participants (u_id, g_id)
-VALUES ('7877adb5-fe86-475e-b67f-c73b37e29dc8', 2),
-('7877adb5-fe86-475e-b67f-c73b37e29dc8', 7),
-('39c85dd8-f3f7-4a38-a61f-738792b12e1a', 3),
-('c6faa50c-5827-4780-84c6-d2a158f8513f', 4),
-('3f166f5b-ccd1-4825-97ff-3877eb466f70', 4),
-('e38f900a-0342-4563-9301-a66cacabc133', 7);
+VALUES ('030fbdfa-ad94-42bd-9633-ee4fa1bf3631', 2),
+('030fbdfa-ad94-42bd-9633-ee4fa1bf3631', 7),
+('450aad07-1dd3-4e85-a631-22e80a2edb61', 3),
+('c395aaf6-1f7f-427f-b749-8f6c95c9157c', 4),
+('2ab7dec8-7dcb-4599-a0ad-c16d170cb136', 4),
+('6ba68879-05bf-4d88-bdca-17fbec5299bd', 7),
+('6ba68879-05bf-4d88-bdca-17fbec5299bd', 1),
+('450aad07-1dd3-4e85-a631-22e80a2edb61', 2);

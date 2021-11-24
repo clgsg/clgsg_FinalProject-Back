@@ -4,8 +4,9 @@ module.exports = (db) => {
 	// router.get("/confirmation/:confirmationToken", require("./confirm")(db));
 	router.post("/signup", require("./signup")(db));
 	router.get("/login", require("./login")(db));
-	// router.put("/password/forgotten", require("./passwordForgotten")(db));
+	// router.put("/pwd/forgotten", require("./passwordForgotten")(db));
 	router.put("/password/update", require("./passwordUpdate")(db));
+	// router.put("/password/forgotten", require("./passwordForgotten")(db));
 	router.put("/email/update", require("./emailUpdate"))
 
 	return router;

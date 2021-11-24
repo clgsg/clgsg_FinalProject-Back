@@ -3,7 +3,6 @@ const { login } = require("../../queries/auth");
 module.exports = (db) => async (req, res, next) => {
 
 	const { email, username, password } = req.body;
-	const result = await login(db, { email, username, password });
 
 	if (!username && !email && !password) {
 		return next({ error: new Error("Introduce tus credenciales") });
@@ -21,6 +20,7 @@ module.exports = (db) => async (req, res, next) => {
 			error: new Error("Ha habido un fallo de identificación"),
 		});
 	}
+	const result = await login(db, { email, username, password });
 
 	res.status(200).json({
 		success: true,

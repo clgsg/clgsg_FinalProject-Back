@@ -27,7 +27,6 @@ CREATE table IF NOT EXISTS users(
 	hashed_pwd TEXT NOT NULL,
 	user_gender usergender,
 	birth_date DATE,
-	user_level level,
 	pref_sports sports[],
 	profile_pic TEXT,
 	access_token TEXT,
