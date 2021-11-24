@@ -124,6 +124,7 @@ module.exports = {
 	userExists,
 	getUserData,
 	getAllUsers,
+	updateEmail,
 	updateProfilePic,
 	getUsersGames,
 	}
