@@ -21,14 +21,14 @@ CREATE type level AS ENUM('Básico', 'Intermedio', 'Competición');
 CREATE table IF NOT EXISTS users(
 	userid uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 	username VARCHAR(15) UNIQUE NOT NULL,
-	first_name TEXT NOT NULL,
-	family_name TEXT NOT NULL,
+	first_name TEXT,
+	family_name TEXT,
 	email TEXT UNIQUE NOT NULL,
 	hashed_pwd TEXT NOT NULL,
-	user_gender usergender NOT NULL,
-	birth_date DATE NOT NULL,
-	user_level level NOT NULL,
-	pref_sports sports[] NOT NULL,
+	user_gender usergender,
+	birth_date DATE,
+	user_level level,
+	pref_sports sports[],
 	profile_pic TEXT,
 	access_token TEXT,
 	activation_token TEXT,
@@ -56,11 +56,6 @@ CREATE table IF NOT EXISTS games(
 	created_at TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'UTC'),
 	updated_at TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'UTC')
 );
-
--- CREATE table IF NOT EXISTS participants_B(
--- 	u_id uuid references users(userid),
--- 	g_id INTEGER references games(gameid),
--- 	participants_id VARCHAR UNIQUE PRIMARY KEY);
 
 CREATE table IF NOT EXISTS participants(
 	u_id uuid references users(userid),

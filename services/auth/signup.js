@@ -1,37 +1,28 @@
-const { createUser } = require("../../queries/auth");
-const { encrypt, createActivationToken } = require("../../helpers/hash");
-const { sendMail } = require("../../helpers/mailer");
+const { signup } = require("../../queries/auth");
+
 
 module.exports = (db) => async (req, res, next) => {
-	const { email, username, password } = req.body;
-	console.info("Data: ", email, username, password);
 
-	if (!email || !username || !password) {
-		return next({ error: new Error("All fields are mandatory") });
+	const {email, username, password} = req.body
+
+	const result = await signup(db, {email, username, password})
+	if (!email || !password || !username) {
+		return next({
+			error: new Error("Todos los campos son obligatorios."),
+		})};
+	if (!result || result === false) {
+		return next({
+			statusCode: 400,
+			error: new Error("Ha habido un fallo de identificación"),
+		});
 	}
-	const hashed_pwd = await encrypt(password);
-
-	const confirmationToken = createActivationToken();
-	console.info("Confirmation: ", confirmationToken);
-
-	const result = await createUser(db, {
-		email,
-		username,
-		hashed_pwd,
-		confirmationToken,
-	});
-
-	if (result === false) {
-		return next({ error: new Error("Something went wrong") });
-	}
-
-	const mailResult = await sendMail({ to: email, confirmationToken });
-	console.info("Mail result: ", mailResult);
 
 	res.status(200).json({
 		success: true,
+		message:
+			"'Güélcom' a Megustalapachanga",
 		data: {
-			info: "Message sent successfully",
+			info: "Ya puedes completar tu perfil y crear e inscribirte a pachangas",
 		},
 	});
 };

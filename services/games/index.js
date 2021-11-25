@@ -1,14 +1,14 @@
-const { authorization } = require("../../middlewares/authorizer");
+// const authorization = require("../../middlewares/authorizer");
 
 const router = require("express").Router();
 
 module.exports = (db) => {
-	router.get("/games", require("./getAllGames")(db));
-	router.post("/:game", require("./createGame")(db));
-	router.get("/games", authorization, require("./getUsersGames")(db));
-	router.get("/games", authorization, require("./getFeaturedGames")(db));
-	router.get("/games", authorization, require("./getGamesByFilter")(db)
-	);
+	router.post("/new", require("./createGame")(db));
+	router.get("/", require("./getAllGames")(db));
+	router.get("/info", require("./getGameInfo")(db));
+	// router.get("/filtered", authorization, require("./getGamesByFilter")(db));
+	// router.get("/bypreferences", authorization, require("./getGamesByUsersPreferences")(db));
+	router.get("/upcoming", require("./getUpcomingGames")(db));
 
 	return router;
 };

@@ -1,20 +1,19 @@
-const { getBySearch } = require("../../queries/products");
+const { getGamesByFilter } = require("../../queries/games");
 
-//TODO: adaptar a filtros
-// module.exports = (db) => async (req, res, next) => {
-// 	const { search, category } = req.query;
+module.exports = (db) => async (req, res, next) => {
+	const { sport, adapted, game_date, game_time, game_gender, game_venue } = req.query;
 
-// 	const result = await getBySearch(db, { search, category });
+	const result = await getGamesByFilter(db, { sport, adapted, game_date, game_time, game_gender, game_venue });
 
-// 	if (result === false) {
-// 		return next({
-// 			statusCode: 404,
-// 			error: new Error("No results found"),
-// 		});
-// 	}
+	if (result === false) {
+		return next({
+			statusCode: 404,
+			error: new Error("No se han encontrado resultados"),
+		});
+	}
 
-// 	res.status(200).json({
-// 		success: "true",
-// 		data: result,
-// 	});
-// };
+	res.status(200).json({
+		success: "true",
+		data: result,
+	});
+};
