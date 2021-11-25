@@ -4,10 +4,10 @@ const router = require("express").Router();
 
 module.exports = (db) => {
 	// router.get("/", require("./getAllUsers")(db));
-	router.get("/games/:userid", require("./getUsersGames")(db));
+	router.get("/:userid/games", require("./getUsersGames")(db));
 	router.get("/:userid", require("./getUserData")(db));
-	// router.put("/updatepic/:userid", authorization, require("./updateProfilePic")(db));
-	// router.put("/update/:userid", require("./updateUserData")(db));
+	// router.put("/:userid/updatepic", authorization, require("./updateProfilePic")(db));
+	// router.put(":userid/update/", require("./updateUserData")(db));
 
 	return router;
 };
