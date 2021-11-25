@@ -115,8 +115,8 @@ const getUsersGames = async (db, { userid }) => {
 
 module.exports = {
 	getUserData,
-	getAllUsers,
+	// getAllUsers,
 	updateEmail,
-	updateProfilePic,
+	// updateProfilePic,
 	getUsersGames,
 	}
