@@ -47,9 +47,25 @@ const addParticipantIfNotInGame = async (db, username, gameid ) => {
 	}
 };
 
+const removeParticipant = async (db, username, gameid) => {
+	const thisUser = usernameToUserid(username);
+	try {
+		await db.query(sql`
+			DELETE FROM users
+			WHERE u_id=${thisUser} AND g_id=${gameid}
+			`);
+	} catch (error) {
+		console.info(
+			"⛔ Error at removeParticipant query: ",
+			error.message
+		);
+		return false;
+	}
+};
 
 module.exports = {
 	getParticipants,
 	isAParticipant,
 	addParticipantIfNotInGame,
+	removeParticipant,
 };
