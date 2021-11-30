@@ -1,4 +1,4 @@
-const { updatePassword, correctCredentials } = require("../../queries/auth");
+const { updatePassword, checkCredentials } = require("../../queries/auth");
 
 const passwordUpdate = (db) => async (req, res, next) => {
 	const { email, password, newPassword } = req.body;
@@ -14,7 +14,7 @@ const passwordUpdate = (db) => async (req, res, next) => {
 		return next({error: new Error("La nueva contraseña debe ser distinta de la actual."),});
 	}
 
-	if (correctCredentials(email, password) === false) {
+	if (checkCredentials(email, password) === false) {
 		return next({ error: new Error("Las credenciales no son válidas.") });
 	};
 

@@ -1,17 +1,18 @@
-// const { encrypt, compare, createToken } = require("./auth/hash");
-// const { toJWT, fromJWT } = require("./auth/jwt");
+const { encrypt, compare, createToken } = require("./auth/hash");
+const { toJWT, fromJWT } = require("./auth/jwt");
 
-// const serialize = (res, { email, username }) => {
-// 	const accessToken = toJWT(email, username);
-// 	return accessToken;
-// };
+const serialize = (res, { email, username }) => {
+	const accessToken = toJWT(email, username);
+	return accessToken;
+};
 
-// const deserialize = (token) => {
-// 	return fromJWT(token);
-// };
+const deserialize = req => {
+	const {token} = req.cookies
+ 	return fromJWT(token);
+};
 
-// module.exports = {
-// 	serialize,
-// 	hash: { encrypt, compare, createToken },
-// 	deserialize,
-// };
+module.exports = {
+	serialize,
+	hashed_pwd: { encrypt, compare, createToken },
+	deserialize,
+};

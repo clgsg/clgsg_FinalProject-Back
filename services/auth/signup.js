@@ -1,4 +1,5 @@
 const { newUser } = require("../../queries/auth");
+const {encrypt} = require('../../helpers/auth/hashed_pwd')
 
 
 module.exports = (db) => async (req, res, next) => {
@@ -8,7 +9,8 @@ module.exports = (db) => async (req, res, next) => {
 		return next({
 			error: new Error("Todos los campos son obligatorios."),
 		})};
-	const result = await newUser(db, {email, username, password})
+	const hashed_pwd = await encrypt(password)
+	const result = await newUser(db, {email, username, hashed_pwd})
 	if (!result || result === false) {
 		return next({
 			statusCode: 400,

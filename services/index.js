@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-module.exports = (db) => {
+module.exports = db => {
 	router.get("/", (req, res) => res.send("Funciona"))
 	router.use("/auth", require("./auth")(db));
 	router.use("/games", require("./games")(db));

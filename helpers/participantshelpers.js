@@ -14,7 +14,6 @@ const usernameToUserid = async (db, username) => {
 
 
 
-//Todo: crear función que compare si ese id de pachanga existe en participants; si no existe, que inserte automáticamente una nueva pachanga en la tabla participants con el userid del usuario; si ya existe, que envíe mensaje al usuario "ya estás inscrito"
 const checkIfGameInTable = async (db, { userid, gameid }) => {
 	await db.query(sql`
 		SELECT

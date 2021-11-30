@@ -14,8 +14,8 @@ const checkCredentials = async (db, {email, username, password}) => {
 			SELECT username FROM users
 			WHERE (email LIKE ${email} OR username LIKE ${username})
 			AND hashed_pwd=${password}
-			`
-			);
+			`);
+		if(!result || result === false) {throw new Error('Credenciales incorrectas.')}
 			return result
 		} catch (error) {
 			console.info("⛔ Error at checkCredentials query:", error.message);
@@ -38,12 +38,12 @@ const updatePassword = async (db, { email, password, newPassword }) => {
 };
 
 
-const newUser = async (db, {email, username, password}) => {
+const newUser = async (db, {email, username, hashed_pwd}) => {
 		try {
 		await db.query(
 			sql`
 			INSERT INTO users (email, username, hashed_pwd)
-			VALUES (${email}, ${username}, ${password})
+			VALUES (${email}, ${username}, ${hashed_pwd})
 		`);
 		return true;
 	} catch (error) {
