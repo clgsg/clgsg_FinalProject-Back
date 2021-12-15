@@ -1,5 +1,5 @@
-const { newUser } = require("../../queries/auth");
-const {encrypt} = require('../../helpers/auth/hashed_pwd')
+const { newUser } = require("../../queries/auth.js");
+const {encrypt} = require('../../helpers/auth/hash.js')
 
 
 module.exports = (db) => async (req, res, next) => {
