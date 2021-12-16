@@ -2,7 +2,6 @@ const { getUserData } = require("../../queries/users");
 
 module.exports = (db, email, username) => async (req, res) => {
 	const {email, username} = res.locals.user
-	// const { username } = req.query;
 	const [result] = await getUserData(db, { username });
 
 	res.status(200).json({
