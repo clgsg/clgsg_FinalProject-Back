@@ -16,7 +16,7 @@ This is the only public part of the site.
 ### User profile
 Information about the user (username, email, gender, profile_pic, date of birth)
 
-### Users games
+### User's games
 Overview of user's games and suggested games, based on user's preferences.
 From this area, users can create games or browse and join existing games.
 
